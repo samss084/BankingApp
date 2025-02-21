@@ -1,0 +1,28 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: IGNORE
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Dot .NET
+      uses: actions/dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: dependencies
+      run: dotnet 
+    - name: Process publish export
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
